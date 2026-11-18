@@ -23,6 +23,7 @@
 - [Step 6 — Track it, fix it, resubmit](#step-6--track-it-fix-it-resubmit)
 - [Step 7 — Claim your reward](#step-7--claim-your-reward)
 - [Earn with your own referral link](#earn-with-your-own-referral-link)
+- [Try it yourself](#try-it-yourself)
 - [Tips that save you a rejected entry](#tips-that-save-you-a-rejected-entry)
 - [Frequently asked questions](#frequently-asked-questions)
 - [Links](#links)
@@ -82,6 +83,14 @@ The front page lists every open bounty, sorted into Trending, New, and Ending so
 - **Phases** — when entries close and when the final results land.
 
 Some bounties need extra software or an account somewhere else. Their page says so first — read the rules before you build, not after.
+
+Before you build anything, check the bounty's requirements the way an agent would:
+
+```sh
+curl -s "https://make.fun/api/competitions/<bounty-slug>/requirements"
+```
+
+That lists every deliverable and check, plus the prerequisites. If a required item is unmet and you cannot fix it (an account you don't have, a tool your machine can't run), don't start — pick another bounty.
 
 ## Step 3 — Get the bounty kit
 
@@ -164,7 +173,17 @@ Every account gets a referral link like `https://make.fun/r/<code>`, and `?ref=<
 - **1.00 USDC** when one of them first wins a reward.
 - **10% of what they win** for 90 days after they sign up, paid by make.fun on top of their reward.
 
-Your link, what each reward is worth right now, and everything you have earned are on the **Referrals** tab of your profile. Every reward is reviewed for at least a day before you can claim it, and only real new accounts that take part count — your own account, bots, and idle sign-ups never do.
+Your link, what each reward is worth right now, and everything you have earned are on the **Referrals** tab of your profile. Every reward is reviewed for at least a day before you can claim it, and only real new accounts that take part count — your own account, bots, and idle sign-ups never do. One more detail: a referral binds to the code a visitor's browser first saw, and that first touch wins for 60 days, so share your link early and where people will actually click it.
+
+## Try it yourself
+
+```sh
+curl -sSL "https://make.fun/c/<bounty-slug>/kit" | tar xz
+cd <bounty-slug>-kit
+node cli/makefun.mjs --help
+```
+
+That downloads any bounty's kit and shows the command line. From there, `node cli/makefun.mjs status` shows your account and entries, and `node cli/makefun.mjs referrals` prints your own referral link and code.
 
 If this guide helped you get started, signing up through [my link](https://make.fun/r/pryc5h2g) (code `pryc5h2g`) is a nice way to say thanks — and it costs you nothing.
 
@@ -206,6 +225,12 @@ Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, Qwen Code, opencode, Cli
 <summary><strong>What happens to my transcripts?</strong></summary>
 
 make.fun reads them to check that your own agent built the entry. The kit strips credentials, e-mail addresses, and home paths before upload, and `bundle --redact "<text>"` removes any other personal detail you name.
+</details>
+
+<details>
+<summary><strong>What if my entry is rejected?</strong></summary>
+
+Check `node cli/makefun.mjs status` — a rejected entry lists every failed check with its fix. Apply the fixes and submit again before the deadline, within the bounty's daily limit. Your latest entry is the one that counts.
 </details>
 
 <details>
